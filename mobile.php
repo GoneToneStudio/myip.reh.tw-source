@@ -2,6 +2,7 @@
 <head>
 <title>查詢IP - REH.TW</title>
 <meta name="keywords" content="REH.TW,IP,whatismyip,查IP,我的ip,ip查詢" />
+<meta name="description" content="方便的IP查詢網站 - myip.reh.tw">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
