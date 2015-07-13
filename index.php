@@ -1,6 +1,14 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <title>查詢IP - REH.TW</title>
+
+<meta name="og:description" content="方便的IP查詢網站 - myip.reh.tw"/>
+<meta property="og:title" content="查詢IP - REH.TW"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="http://myip.reh.tw"/>
+<meta property="og:image" content="http://www.reh.tw/image/logo.jpg"/>
+<meta property="og:site_name" content="查詢IP - REH.TW"/>
+
 <meta name="keywords" content="REH.TW,IP,whatismyip,查IP,我的ip,ip查詢" />
 <meta name="description" content="方便的IP查詢網站 - myip.reh.tw">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
