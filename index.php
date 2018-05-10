@@ -1,153 +1,250 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
-<head>
-<title>查詢IP - REH.TW</title>
+<?php
+/* 取得用戶 IP */
+if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
+    $ipAddress = $_SERVER["HTTP_CLIENT_IP"];
+} else if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+    $ipAddress = $_SERVER["HTTP_X_FORWARDED_FOR"];
+} else {
+    $ipAddress = $_SERVER["REMOTE_ADDR"];
+}
 
-<meta name="og:description" content="方便的IP查詢網站 - myip.reh.tw"/>
-<meta property="og:title" content="查詢IP - REH.TW"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="http://myip.reh.tw"/>
-<meta property="og:image" content="http://www.reh.tw/image/logo.jpg"/>
-<meta property="og:site_name" content="查詢IP - REH.TW"/>
+/* 引入 functions */
+include_once("functions.php");
 
-<meta name="keywords" content="REH.TW,IP,whatismyip,查IP,我的ip,ip查詢" />
-<meta name="description" content="方便的IP查詢網站 - myip.reh.tw">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<style type="text/css">
+/* IP 詳細資料查詢 */
+$ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddress));
+?>
 <!--
-.style2 {color: #003399}
-a:link {
-	font-size: 16px;
-	text-decoration: none;
-}
-.style1 {
-	color: #808000;
-}
+    快速查詢 IP
+    https://myip.reh.tw/
+
+    Developed by 張文相 (Zhang Wenxiang)
+    https://www.facebook.com/GoneToneDY
 -->
-</style>
-</head>
-<body id="TestPage" bgcolor="#AAFFEE">
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>快速查詢 IP - myip.reh.tw</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+        <link href="//fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet" type="text/css">
+        <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/grayscale.min.css" rel="stylesheet" type="text/css">
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">快速查詢 IP - myip.reh.tw</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">選單 <i class="fa fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#yourip">我的 IP</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#about">關於</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead">
+            <div class="intro-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h1 class="brand-heading">快速查詢 IP</h1>
+                            <p class="intro-text">本站提供您快速方便查詢自己網路 IP 的服務
+                                <br><a class="copy" id="copyUrl" href="javascript:;" data-clipboard-text="快速查詢 IP - https://myip.reh.tw/">myip.reh.tw</a></p>
+                            <a href="#yourip" class="btn btn-circle js-scroll-trigger">
+                                <i class="fa fa-angle-double-down animated"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section id="yourip" class="content-section text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>您的 IP 為</h2>
+                        <div class="input-group w-100">
+                            <input class="form-control" type="text" value="<?php echo $ipAddress; ?>" readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-lg copy" id="copyBtn" data-clipboard-text="我的 IP 是「<?php echo $ipAddress; ?>」 | 快速查詢 IP - myip.reh.tw">複製 IP</button>
+                            </div>
+                        </div>
+                        <p id="copyMsg"></p>
+                        <p></p>
+                    </div>
+                    <div class="col-lg-8 mx-auto">
+                        <?php if ($ipInfo && $ipInfo["status"] == "success") : ?>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td width="50%">國家</td>
+                                    <?php if (isset($ipInfo["country"])) : ?>
+                                    <td width="50%"><?php echo $ipInfo["country"]; ?></td>
+                                    <?php else : ?>
+                                    <td width="50%">無法取得資料</td>
+                                    <?php endif; ?>
+                                </tr>
+                                <tr>
+                                    <td width="50%">城市</td>
+                                    <?php if (isset($ipInfo["city"])) : ?>
+                                    <td width="50%"><?php echo $ipInfo["city"]; ?></td>
+                                    <?php else : ?>
+                                    <td width="50%">無法取得資料</td>
+                                    <?php endif; ?>
+                                </tr>
+                                <tr>
+                                    <td width="50%">時區</td>
+                                    <?php if (isset($ipInfo["timezone"])) : ?>
+                                    <td width="50%"><?php echo $ipInfo["timezone"]; ?></td>
+                                    <?php else : ?>
+                                    <td width="50%">無法取得資料</td>
+                                    <?php endif; ?>
+                                </tr>
+                                <tr>
+                                    <td width="50%">ISP 業者</td>
+                                    <?php if (isset($ipInfo["isp"])) : ?>
+                                    <td width="50%"><?php echo $ipInfo["isp"]; ?></td>
+                                    <?php else : ?>
+                                    <td width="50%">無法取得資料</td>
+                                    <?php endif; ?>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <?php else : ?>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td width="50%">國家</td>
+                                    <td width="50%">無法取得資料</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">城市</td>
+                                    <td width="50%">無法取得資料</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">時區</td>
+                                    <td width="50%">無法取得資料</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">ISP 業者</td>
+                                    <td width="50%">無法取得資料</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="info-section content-section text-center">
+            <div class="container">
+                <div class="col-lg-8 mx-auto">
+                    <h2>關於</h2>
+                    <p>本站開發目的是為了讓使用者快速方便查詢自己的網路 IP，像是在自己的主機架設網頁伺服器或遊戲伺服器等等，要公開讓其他人連線進來都需要知道自己的網路 IP，就像你家的住址一樣。</p>
+                    <p>本站程式碼也有開源至 <a href="#" target="_blank">GitHub</a>，歡迎一起開發維護專案！</p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/GoneToneDY" target="_blank" class="btn btn-default btn-lg">
+                                <i class="fa fa-facebook fa-fw"></i>
+                                <span class="network-name">Facebook</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/TPGoneTone" target="_blank" class="btn btn-default btn-lg">
+                                <i class="fa fa-twitter fa-fw"></i>
+                                <span class="network-name">Twitter</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" target="_blank" class="btn btn-default btn-lg">
+                                <i class="fa fa-github fa-fw"></i>
+                                <span class="network-name">Github</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container text-center">
+                <p>Copyright &copy; <?php $set = '2018'; $datetime = date ("Y" , mktime(date('H')+8, date('i'), date('s'), date('m'), date('d'), date('Y'))); if( $datetime == $set) {echo $datetime;}else{echo $set.'-'.$datetime;} ?> <a href="/">快速查詢 IP - myip.reh.tw</a>. All rights reserved.
+                    <br>Developed by <a href="https://www.facebook.com/GoneToneDY" target="_blank">張文相 (Zhang Wenxiang)</a>.</p>
+            </div>
+        </footer>
+        <!-- 複製成功訊息 -->
+        <div class="modal fade" id="copySuccessMsg" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><font color="#000000"><i class="fa fa-check"></i> 複製成功</font></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><font color="#000000">內容已經複製至您的剪貼簿！</font></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 複製失敗訊息 -->
+        <div class="modal fade" id="copyErrorMsg" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><font color="#000000"><i class="fa fa-times"></i> 複製失敗</font></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><font color="#000000">內容複製失敗，請手動複製內容。</font></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/vendors/jquery/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/vendors/jquery-easing/jquery.easing.min.js"></script>
+        <script src="assets/js/clipboard.min.js"></script>
+        <script src="assets/js/grayscale.min.js"></script>
+        <script type="text/javascript">
+            /* 複製內容功能設定 */
+            var copyUrl = new Clipboard('#copyUrl');
+            //複製成功執行
+            copyUrl.on('success', function(e) {
+                e.clearSelection();
+                $("#copySuccessMsg").modal(); //複製成功彈出訊息模板
+            });
+            //複製失敗執行
+            copyUrl.on('error', function(e) {
+                $("#copyErrorMsg").modal(); //複製失敗彈出訊息模板
+            });
 
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-557c114a390b18d3" async="async"></script>
-
-<script language=JavaScript>
-        var url = location.search;
-        var rid;
-        if(url.indexOf("?") == -1) {//電腦版網址後方沒有參數，就自動進入手機版判斷程式
- 
-	            	        	if(navigator.userAgent.match(/Android|iPhone|iPad/i)) {
-			    	 	window.location = 'mobile.php';
-			    	 }
- 
-         }
- 
-         if(url.indexOf("?") != -1)  {//電腦版網址後方有參數
- 
-            var str = url.substr(1);
-            rid = str.split("=")[1];
- 
-   	        if (rid != "web" ){  //且第一個參數不是web，就自動進入手機般判斷程式
-			if(navigator.userAgent.match(/Android|iPhone|iPad/i)) {
-			    	 	window.location = 'mobile.php';
-			    	 }
- 
-	        }
-	    }
- 
-</script>
-
-<br><br><br><br><br><br><br><br><br><br><br>
-<table width="623" align="center">
-<tr>
-<td width="615"><h1 align="center" class="style2" >您的 IP 是 <font color=green><?php
-if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-   $myip = $_SERVER['HTTP_CLIENT_IP'];
-}else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-   $myip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}else{
-   $myip= $_SERVER['REMOTE_ADDR'];
-}
-echo $myip;
-?></font></h1></td>
-</tr>
-<tr>
-<td align="center">方便的IP查詢網站 - myip.reh.tw</td>
-</tr>
-<tr>
-<div style="text-align:center;">
-<a href="JavaScript:window.location.reload()">重新整理</a> 
-</div>
-</tr>
-</table>
-
-<br><br><br><br><br>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.3";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<div class="fb-page" data-href="https://www.facebook.com/reh.tw.sw" data-width="100%" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/reh.tw.sw"><a href="https://www.facebook.com/reh.tw.sw">旋風之音</a></blockquote></div></div>
-<div class="fb-page" data-href="https://www.facebook.com/reh.tw" data-width="100%" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/reh.tw"><a href="https://www.facebook.com/reh.tw">改革旋風 - REH.TW</a></blockquote></div></div>
-
-<br><br><br>
-
-<div style="text-align:center;">
-<a href="http://reh.tw" class="classname"><font size="5">REH.TW 官網</font></a>
-</div>
-<br><br><br>
-
-<style type="text/css">
-.classname {
-	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
-	background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
-	background-color:#79bbff;
-	-webkit-border-top-left-radius:10px;
-	-moz-border-radius-topleft:10px;
-	border-top-left-radius:10px;
-	-webkit-border-top-right-radius:10px;
-	-moz-border-radius-topright:10px;
-	border-top-right-radius:10px;
-	-webkit-border-bottom-right-radius:10px;
-	-moz-border-radius-bottomright:10px;
-	border-bottom-right-radius:10px;
-	-webkit-border-bottom-left-radius:10px;
-	-moz-border-radius-bottomleft:10px;
-	border-bottom-left-radius:10px;
-	text-indent:0;
-	border:1px solid #84bbf3;
-	display:inline-block;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:40px;
-	font-weight:bold;
-	font-style:normal;
-	height:50px;
-	line-height:50px;
-	width:30%;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #528ecc;
-}
-.classname:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
-	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
-	background-color:#378de5;
-}.classname:active {
-	position:relative;
-	top:1px;
-}</style>
-
-</body>
+            var copyBtn = new Clipboard('#copyBtn');
+            //複製成功執行
+            copyBtn.on('success', function(e) {
+                e.clearSelection();
+                $("#copyMsg").html('<font color="#43ac18"><b>複製成功</b></font>'); //複製成功顯示文字
+                $("#copyBtn").attr("disabled", true);　//禁用按鈕
+            });
+            //複製失敗執行
+            copyBtn.on('error', function(e) {
+                $("#copyMsg").html('<font color="#ff0000"><b>複製失敗</b></font>'); //複製失敗彈出訊息模板
+                $("#copyBtn").attr("disabled", true);　//禁用按鈕
+            });
+        </script>
+    </body>
 </html>
