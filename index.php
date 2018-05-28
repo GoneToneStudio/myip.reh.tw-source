@@ -63,6 +63,13 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
         <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="assets/css/grayscale.min.css" rel="stylesheet" type="text/css">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-3794226192931198",
+                enable_page_level_ads: true
+            });
+        </script>
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -171,6 +178,9 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
                             </tbody>
                         </table>
                         <?php endif; ?>
+                    </div>
+                    <div class="col-lg-8 mx-auto">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3794226192931198" data-ad-slot="4312571378" data-ad-format="auto"></ins>
                     </div>
                 </div>
             </div>
