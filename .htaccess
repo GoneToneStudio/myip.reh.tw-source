@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://myip.reh.tw/$1 [R,L]
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+addDefaultCharset UTF-8
+php_flag output_buffering On

@@ -27,8 +27,37 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>快速查詢 IP - myip.reh.tw</title>
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <link rel="shortcut icon" href="favicon.ico">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-16x16.png" sizes="16x16">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-32x32.png" sizes="32x32">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-64x64.png" sizes="64x64">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-128x128.png" sizes="128x128">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-192x192.png" sizes="192x192">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-256x256.png" sizes="256x256">
+		<link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-512x512.png" sizes="512x512">
+		<link rel="apple-touch-icon-precomposed" href="https://myip.reh.tw/assets/images/og-images/logo-256x256.png">
+        <meta name="author" content="張文相 Zhang Wenxiang">
+        <meta property="article:author" content="https://www.facebook.com/GoneToneDY/">
+        <meta property="fb:app_id" content="344099459299612">
+        <meta property="og:site_name" content="快速查詢 IP - myip.reh.tw">
+		<meta property="og:locale" content="zh_tw">
+		<meta name="twitter:site" content="@TPGoneTone">
+		<meta name="twitter:creator" content="@TPGoneTone">
+        <meta name="description" content="提供您快速方便查詢自己網路 IP 的服務。">
+        <meta property="description" content="提供您快速方便查詢自己網路 IP 的服務。">
+        <link rel="image_src" type="image/jpeg" href="https://myip.reh.tw/assets/images/og-images/logo-256x256.png">
+		<meta name="msapplication-TileImage" content="https://myip.reh.tw/assets/images/og-images/logo-256x256.png">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="快速查詢 IP - myip.reh.tw">
+        <meta property="og:description" content="提供您快速方便查詢自己網路 IP 的服務。">
+		<meta property="og:url" content="https://myip.reh.tw">
+		<meta property="og:image" content="https://myip.reh.tw/assets/images/og-images/logo-256x256.png">
+		<meta property="og:image:width" content="256">
+		<meta property="og:image:height" content="256">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="快速查詢 IP - myip.reh.tw">
+		<meta name="twitter:description" content="提供您快速方便查詢自己網路 IP 的服務。">
+		<meta name="twitter:image" content="https://myip.reh.tw/assets/images/og-images/logo-256x256.png">
         <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
         <link href="//fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet" type="text/css">
         <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -166,7 +195,7 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#" target="_blank" class="btn btn-default btn-lg">
+                            <a href="https://github.com/GoneTone/myip.reh.tw-source" target="_blank" class="btn btn-default btn-lg">
                                 <i class="fa fa-github fa-fw"></i>
                                 <span class="network-name">Github</span>
                             </a>
