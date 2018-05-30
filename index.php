@@ -180,7 +180,14 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
                         <?php endif; ?>
                     </div>
                     <div class="col-lg-8 mx-auto">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3794226192931198" data-ad-slot="4312571378" data-ad-format="auto"></ins>
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-3794226192931198"
+                             data-ad-slot="4312571378"
+                             data-ad-format="auto"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
             </div>
