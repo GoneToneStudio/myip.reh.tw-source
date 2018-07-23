@@ -62,7 +62,7 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
         <link href="//fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet" type="text/css">
         <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/grayscale.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/grayscale.min.css?v=1.0.1" rel="stylesheet" type="text/css">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({
@@ -197,7 +197,7 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
                 <div class="col-lg-8 mx-auto">
                     <h2>關於</h2>
                     <p>本站開發目的是為了讓使用者快速方便查詢自己的網路 IP，像是在自己的主機架設網頁伺服器或遊戲伺服器等等，要公開讓其他人連線進來都需要知道自己的網路 IP，就像你家的住址一樣。</p>
-                    <p>本站程式碼也有開源至 <a href="#" target="_blank">GitHub</a>，歡迎一起開發維護專案！</p>
+                    <p>本站程式碼也有開源至 <a href="https://github.com/GoneTone/myip.reh.tw-source" target="_blank">GitHub</a>，歡迎一起開發維護專案！</p>
                     <ul class="list-inline banner-social-buttons">
                         <li class="list-inline-item">
                             <a href="https://www.facebook.com/GoneToneDY" target="_blank" class="btn btn-default btn-lg">
