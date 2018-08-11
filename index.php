@@ -26,6 +26,7 @@ $ipInfo = @unserialize(file_get_contents_curl('http://ip-api.com/php/'.$ipAddres
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="theme-color" content="#000000">
         <title>快速查詢 IP - myip.reh.tw</title>
         <link rel="shortcut icon" href="favicon.ico">
         <link rel="icon" href="https://myip.reh.tw/assets/images/icons/icon-16x16.png" sizes="16x16">
