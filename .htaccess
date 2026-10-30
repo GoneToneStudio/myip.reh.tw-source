@@ -8,4 +8,4 @@ allow from all
 </Files>
 
 addDefaultCharset UTF-8
-php_flag output_buffering On
+# [mod_php removed 2026-10-22] php_flag output_buffering On
